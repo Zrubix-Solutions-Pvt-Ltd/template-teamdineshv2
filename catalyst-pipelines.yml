@@ -1,0 +1,16 @@
+version: 1.0
+
+jobs:
+  deploy:
+    steps:
+      - echo "── Installing npm dependencies ──"
+      - npm install --prefix backend/functions/new_api_2026 --omit=dev
+      - echo "── Installing Catalyst CLI ──"
+      - npm install -g zcatalyst-cli
+      - chmod +x scripts/deploy_and_notify.sh
+      - scripts/deploy_and_notify.sh
+
+stages:
+  - name: deploy-backend
+    jobs:
+      - deploy
