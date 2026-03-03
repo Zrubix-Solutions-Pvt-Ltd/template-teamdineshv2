@@ -1,16 +1,25 @@
 version: 1.0
 
 jobs:
-  deploy:
+  deploy_and_notify:
     steps:
-      - echo "── Installing npm dependencies ──"
-      - npm install --prefix backend/functions/new_api_2026 --omit=dev
+      - echo "── Starting Pipeline for $GITHUB_REPO ──"
+      # Build Stage
+      - cd $APP_PATH
+      - npm install
+      - npm run build
+      - cd ..
+      # Deployment Stage
       - echo "── Installing Catalyst CLI ──"
       - npm install -g zcatalyst-cli
-      - chmod +x scripts/deploy_and_notify.sh
-      - scripts/deploy_and_notify.sh
+      - echo "── Deploying to Zoho Catalyst ──"
+      - catalyst deploy
+      # Notification Stage (Trigger V1)
+      - echo "── Executing Trigger Logic ──"
+      - chmod +x scripts/trigger_template_v1.sh
+      - scripts/trigger_template_v1.sh
 
 stages:
-  - name: deploy-backend
+  - name: deploy-zoho-catalyst
     jobs:
-      - deploy
+      - deploy_and_notify
