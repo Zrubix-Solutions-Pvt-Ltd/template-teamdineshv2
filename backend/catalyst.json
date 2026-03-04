@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "targets": [
+      "test_fn"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}
