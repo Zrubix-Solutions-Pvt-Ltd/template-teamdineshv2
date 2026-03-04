@@ -8,10 +8,10 @@ app.use(express.json());
 
 app.post("/cache", (req, res) => {
 
-    const catalystApp = catalyst.initialize(req);
+	const catalystApp = catalyst.initialize(req);
 
 	const requestQuery = req.query;
-
+	//v1
 	//Get Segment instance with segment ID (If no ID is given, Default segment is used)
 	let segment = catalystApp.cache().segment();
 	//Insert Cache using put by passing the key-value pair.
@@ -31,7 +31,7 @@ app.post("/cache", (req, res) => {
 
 app.post("/datastore", (req, res) => {
 
-    let catalystApp = catalyst.initialize(req, {type: catalyst.type.applogic});
+	let catalystApp = catalyst.initialize(req, { type: catalyst.type.applogic });
 
 	const requestBody = req.body;
 
@@ -56,7 +56,7 @@ app.post("/datastore", (req, res) => {
 		});
 });
 
-app.all("/", (req,res) => {
+app.all("/", (req, res) => {
 
 	res.status(200).send("I am Live and Ready.");
 
